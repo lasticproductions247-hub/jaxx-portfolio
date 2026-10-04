@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Free AI Tools &amp; Utilities | Jaxx — Lastic Productions</title>
+    <meta name="description"
+        content="Free browser-based developer tools. Password strength checker, JSON formatter, colour converter, hash generator, QR codes, text diff and more. No signup, no uploads — everything runs on your device." />
+    <meta name="keywords" content="free online tools, json formatter, password strength, hash generator, qr code generator, colour converter, text diff, developer utilities" />
+    <meta property="og:title" content="Free AI Tools &amp; Utilities | Jaxx" />
+    <meta property="og:description" content="Eight premium browser tools. Nothing leaves your device." />
+    <meta property="og:type" content="website" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Turret+Road:wght@400;700&family=Montserrat:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <style>
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #333 #000;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--rose-600);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #000;
+            color: #fff;
+        }
+
+        .font-display {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* ===== FLASHING OVERLAY WINDOW ===== */
+        .flash-window {
+            position: relative;
+            border-radius: 1.75rem;
+            padding: 2px;
+            background: linear-gradient(120deg, #e11d48, #f43f5e, #9333ea, #e11d48);
+            background-size: 300% 300%;
+            animation: borderSpin 4s linear infinite;
+            box-shadow: 0 0 60px rgba(225, 29, 72, .35), 0 0 120px rgba(225, 29, 72, .18);
+        }
+
+        @keyframes borderSpin {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .flash-inner {
+            position: relative;
+            border-radius: calc(1.75rem - 2px);
+            background: linear-gradient(135deg, #12121a 0%, #0a0a0c 100%);
+            overflow: hidden;
+        }
+
+        /* sweeping light beam */
+        .flash-inner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(244, 63, 94, .18), transparent);
+            animation: beam 3.4s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes beam {
+            0%,
+            100% {
+                left: -120%;
+            }
+
+            60% {
+                left: 130%;
+            }
+        }
+
+        /* pulsing red glow behind the title */
+        .glow-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 420px;
+            height: 160px;
+            background: radial-gradient(circle, rgba(225, 29, 72, .45), transparent 70%);
+            filter: blur(40px);
+            animation: glowPulse 2.4s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                opacity: .45;
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                opacity: .95;
+                transform: translate(-50%, -50%) scale(1.14);
+            }
+        }
+
+        /* flashing LIVE badge */
+        .flash-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .5rem 1rem;
+            border-radius: 9999px;
+            background: rgba(225, 29, 72, .12);
+            border: 1px solid rgba(225, 29, 72, .4);
+            animation: badgeFlash 1.5s ease-in-out infinite;
+        }
+
+        @keyframes badgeFlash {
+
+            0%,
+            100% {
+                background: rgba(225, 29, 72, .12);
+                box-shadow: 0 0 0 rgba(225, 29, 72, 0);
+                color: #fda4af;
+            }
+
+            50% {
+                background: rgba(225, 29, 72, .38);
+                box-shadow: 0 0 24px rgba(225, 29, 72, .6);
+                color: #fff;
+            }
+        }
+
+        .flash-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 9999px;
+            background: #f43f5e;
+            animation: dotFlash 1.5s ease-in-out infinite;
+        }
+
+        @keyframes dotFlash {
+
+            0%,
+            100% {
+                opacity: .35;
+                transform: scale(.85);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.25);
+            }
+        }
+
+        /* blinking cursor in the overlay headline */
+        .blink {
+            animation: blink 1s steps(2, start) infinite;
+        }
+
+        @keyframes blink {
+            to {
+                visibility: hidden;
+            }
+        }
+
+        /* rotating conic ring around the icon */
+        .ring-conic {
+            position: absolute;
+            inset: -2px;
+            border-radius: 1.15rem;
+            background: conic-gradient(from 0deg, transparent 0deg, #e11d48 90deg, transparent 180deg, #f43f5e 270deg, transparent 360deg);
+            animation: spin 3.2s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .card-glow {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(600px circle at var(--x, 50%) var(--y, 0%), rgba(225, 29, 72, .16), transparent 45%);
+            opacity: 0;
+            transition: opacity .3s ease;
+            pointer-events: none;
+        }
+
+        .tool-card:hover .card-glow {
+            opacity: 1;
+        }
+
+        .grid-bg {
+            background-image: linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+
+        /* floating side beacon */
+        .beacon {
+            position: fixed;
+            right: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 60;
+        }
+
+        .beacon-dot {
+            position: relative;
+            width: 18px;
+            height: 18px;
+            border-radius: 9999px;
+            background: #e11d48;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: beaconCore 1.8s ease-in-out infinite;
+        }
+
+        .beacon-dot::before,
+        .beacon-dot::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            border: 2px solid rgba(225, 29, 72, .8);
+            animation: beaconRipple 1.8s ease-out infinite;
+        }
+
+        .beacon-dot::after {
+            animation-delay: .9s;
+        }
+
+        @keyframes beaconCore {
+
+            0%,
+            100% {
+                transform: scale(.85);
+                box-shadow: 0 0 0 0 rgba(225, 29, 72, .6);
+            }
+
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 22px 6px rgba(225, 29, 72, .45);
+            }
+        }
+
+        @keyframes beaconRipple {
+            0% {
+                transform: scale(1);
+                opacity: .9;
+            }
+
+            100% {
+                transform: scale(3.1);
+                opacity: 0;
+            }
+        }
+
+        .beacon-link {
+            position: absolute;
+            inset: -14px;
+            border-radius: 9999px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .beacon-dot,
+            .beacon-dot::before,
+            .beacon-dot::after {
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .flash-window,
+            .flash-inner::before,
+            .glow-pulse,
+            .flash-badge,
+            .flash-dot,
+            .ring-conic,
+            .blink {
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-black text-white antialiased">
+
+    <!-- ===== NAV ===== -->
+    <nav class="fixed top-0 inset-x-0 z-50 bg-black/70 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 h-16 flex items-center justify-between gap-3">
+            <a href="index.html" class="flex items-center gap-2 sm:gap-3 group shrink-0 min-w-0">
+                <div
+                    class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br from-rose-600 to-rose-500 flex-shrink-0 flex items-center justify-center font-display font-black text-sm shadow-lg shadow-rose-600/30">
+                    J
+                </div>
+                <span class="font-display font-bold text-sm tracking-tight whitespace-nowrap">JAXX<span
+                        class="text-rose-500">.</span></span>
+            </a>
+            <div class="flex items-center gap-3 sm:gap-4 lg:gap-6 shrink-0">
+                <a href="index.html#work"
+                    class="hidden sm:inline-block text-[11px] uppercase tracking-[0.2em] font-bold text-gray-500 hover:text-white transition-colors">Work</a>
+                <a href="index.html#skills"
+                    class="hidden sm:inline-block text-[11px] uppercase tracking-[0.2em] font-bold text-gray-500 hover:text-white transition-colors">Skills</a>
+                <a href="index.html"
+                    class="shrink-0 px-4 sm:px-5 py-2 sm:py-2.5 bg-rose-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-rose-500 transition-all whitespace-nowrap">Portfolio</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== FLOATING BEACON ===== -->
+    <div class="beacon">
+        <a href="#tools" class="beacon-link" aria-label="Jump to tools"></a>
+        <div class="beacon-dot"></div>
+    </div>
+
+    <!-- ===== FLASHING OVERLAY WINDOW ===== -->
+    <section class="relative pt-28 lg:pt-36 px-6 lg:px-10 pb-16 lg:pb-24 overflow-hidden">
+        <div class="absolute inset-0 grid-bg opacity-40 pointer-events-none"></div>
+        <div class="max-w-6xl mx-auto relative">
+
+            <!-- flasher -->
+            <div class="flash-window">
+                <div class="flash-inner px-6 lg:px-14 py-12 lg:py-16 text-center">
+                    <div class="glow-pulse"></div>
+
+                    <div class="relative z-10">
+                        <!-- LIVE badge -->
+                        <div class="flash-badge mb-8">
+                            <span class="flash-dot"></span>
+                            <span class="text-[10px] font-black uppercase tracking-[0.3em]">Live &middot; Free &middot; Instant</span>
+                        </div>
+
+                        <h1
+                            class="font-display text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter leading-[1.05] mb-6">
+                            <span class="text-white">AI TOOLS</span>
+                            <span class="bg-gradient-to-r from-rose-500 via-fuchsia-500 to-rose-500 bg-clip-text text-transparent"> FOR USE</span><span
+                                class="text-rose-500 blink">_</span>
+                        </h1>
+
+                        <p class="text-gray-400 text-sm lg:text-base max-w-2xl mx-auto leading-relaxed mb-10">
+                            Eight premium utilities that run <span class="text-white font-semibold">entirely in your browser</span>.
+                            No signup. No upload. No server. Nothing ever leaves your device.
+                        </p>
+
+                        <div class="flex flex-wrap items-center justify-center gap-3 mb-10">
+                            <span
+                                class="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-widest text-gray-300">100%
+                                Client-Side</span>
+                            <span
+                                class="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-widest text-gray-300">No
+                                Tracking</span>
+                            <span
+                                class="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-widest text-gray-300">Works
+                                Offline</span>
+                        </div>
+
+                        <a href="#tools"
+                            class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-rose-600 to-rose-500 text-white rounded-xl font-bold text-sm hover:scale-105 transition-transform shadow-xl shadow-rose-600/25">
+                            Explore The Tools <i class="uil uil-arrow-down"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TOOLS GRID ===== -->
+    <section id="tools" class="px-6 lg:px-10 pb-24 lg:pb-32">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14">
+                <h2 class="font-display text-3xl lg:text-4xl font-black tracking-tight mb-3">Pick A Tool</h2>
+                <p class="text-gray-500 text-sm">Click any card to open it.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6" id="tools-grid"></div>
+        </div>
+    </section>
+
+    <!-- ===== MODAL ===== -->
+    <div id="tool-modal"
+        class="fixed inset-0 z-[100] hidden items-center justify-center p-4 lg:p-6 opacity-0 transition-all duration-500 ease-out backdrop-blur-0">
+        <div class="absolute inset-0 bg-black/80 transition-opacity duration-500 opacity-0" id="tool-overlay"></div>
+        <div id="tool-container"
+            class="relative bg-[#121218]/90 backdrop-blur-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl border border-white/10 shadow-[0_0_100px_rgba(0,0,0,0.8)] p-8 lg:p-12 transform scale-90 opacity-0 transition-all duration-500">
+
+            <div class="absolute top-6 right-6 z-10">
+                <button onclick="closeTool()"
+                    class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition-transform hover:rotate-90">
+                    <i class="uil uil-times text-2xl"></i>
+                </button>
+            </div>
+
+            <div id="tool-content" class="flex flex-col gap-6"></div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="border-t border-white/5 py-10 px-6 text-center">
+        <p class="text-[10px] uppercase tracking-[0.5em] text-gray-600">
+            Part of the Lastic Research ecosystem &middot; Crafted by Jaxx
+        </p>
+    </footer>
+
+    <script>
+        const TOOLS = [
+            { id: 'password', icon: 'uil uil-lock-alt', name: 'Password Strength', tag: 'Security', accent: 'from-rose-500 to-pink-500', desc: 'Check how strong any password is before you use it. Nothing is stored or sent.' },
+            { id: 'json', icon: 'uil uil-code', name: 'JSON Formatter', tag: 'Developer', accent: 'from-cyan-500 to-blue-500', desc: 'Beautify, validate and minify JSON instantly. Errors point to the exact problem.' },
+            { id: 'color', icon: 'uil uil-palette', name: 'Colour Converter', tag: 'Design', accent: 'from-purple-500 to-fuchsia-500', desc: 'HEX to RGB, HSL and more. Pick a colour and copy every format at once.' },
+            { id: 'case', icon: 'uil uil-text', name: 'Case Converter', tag: 'Text', accent: 'from-emerald-500 to-teal-500', desc: 'Switch text between camelCase, snake_case, kebab-case, PascalCase and more.' },
+            { id: 'hash', icon: 'uil uil-shield', name: 'Hash Generator', tag: 'Security', accent: 'from-amber-500 to-orange-500', desc: 'Create SHA-256, SHA-1 or SHA-512 digests for any text, generated in your browser.' },
+            { id: 'qr', icon: 'uil uil-qrcode', name: 'QR Code Generator', tag: 'Utility', accent: 'from-rose-500 to-red-500', desc: 'Turn any link or message into a scannable QR code. Download as PNG.' },
+            { id: 'diff', icon: 'uil uil-arrows-h', name: 'Text Diff', tag: 'Developer', accent: 'from-sky-500 to-indigo-500', desc: 'Compare two blocks of text and see exactly which lines changed.' },
+            { id: 'timestamp', icon: 'uil uil-clock', name: 'Unix Timestamp', tag: 'Utility', accent: 'from-lime-500 to-green-500', desc: 'Convert any date to a Unix timestamp and back, in local time or UTC.' }
+        ];
+
+        const renderTools = () => {
+            const grid = document.getElementById('tools-grid');
+            if (!grid) return;
+            grid.innerHTML = TOOLS.map((t) => `
+                <button data-tool="${t.id}"
+                    class="tool-card group relative text-left bg-white/[0.03] border border-white/5 rounded-2xl p-6 hover:bg-white/[0.07] hover:border-rose-500/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_10px_40px_rgba(225,29,72,0.15)] overflow-hidden">
+                    <span class="card-glow"></span>
+                    <div class="relative w-12 h-12 mb-5">
+                        <span class="ring-conic"></span>
+                        <span class="relative z-10 w-full h-full rounded-xl bg-gradient-to-br ${t.accent} flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110">
+                            <i class="${t.icon} text-white text-xl"></i>
+                        </span>
+                    </div>
+                    <span class="relative block text-[9px] font-black uppercase tracking-widest text-rose-500 mb-2">${t.tag}</span>
+                    <h3 class="relative block text-white font-bold text-base mb-2 leading-tight">${t.name}</h3>
+                    <p class="relative block text-gray-400 text-xs leading-relaxed">${t.desc}</p>
+                    <span class="relative mt-4 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-500 group-hover:text-rose-500 transition-colors">
+                        Open Tool <i class="uil uil-arrow-right"></i>
+                    </span>
+                </button>`).join('');
+
+            grid.querySelectorAll('.tool-card').forEach((card) => {
+                card.addEventListener('mousemove', (e) => {
+                    const r = card.getBoundingClientRect();
+                    card.style.setProperty('--x', (e.clientX - r.left) + 'px');
+                    card.style.setProperty('--y', (e.clientY - r.top) + 'px');
+                });
+            });
+        };
+
+        const openTool = (id) => {
+            const t = TOOLS.find((x) => x.id === id);
+            if (!t) return;
+            const modal = document.getElementById('tool-modal');
+            const overlay = document.getElementById('tool-overlay');
+            const container = document.getElementById('tool-container');
+            const content = document.getElementById('tool-content');
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+            modal.classList.add('opacity-100');
+            overlay.classList.remove('opacity-0');
+            overlay.classList.add('opacity-100');
+            container.classList.remove('scale-90', 'opacity-0');
+            container.classList.add('scale-100', 'opacity-100');
+
+            content.innerHTML = `
+                <div class="flex items-center gap-4 pr-14">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br ${t.accent} flex items-center justify-center shadow-lg flex-shrink-0">
+                        <i class="${t.icon} text-white text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display text-2xl lg:text-3xl font-black tracking-tight leading-none">${t.name}</h3>
+                        <p class="text-[10px] text-rose-500 font-black uppercase tracking-widest mt-2">${t.tag} &middot; Runs on your device</p>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">${t.desc}</p>
+                <div id="tool-body"></div>
+                <div class="pt-6 border-t border-white/5">
+                    <button onclick="closeTool()" class="w-full py-3.5 border border-white/10 text-white rounded-xl text-xs font-bold hover:bg-white/5 transition-all">Close</button>
+                </div>`;
+
+            runTool(id);
+        };
+
+        const closeTool = () => {
+            const modal = document.getElementById('tool-modal');
+            const overlay = document.getElementById('tool-overlay');
+            const container = document.getElementById('tool-container');
+            modal.classList.add('opacity-0');
+            overlay.classList.add('opacity-0');
+            container.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 400);
+        };
+
+        // ---- Tool markup ----
+        const TOOL_IMPL = {
+            password: () => `
+                <input id="pw-in" type="text" placeholder="Type a password" class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white text-sm focus:border-rose-500/50 focus:outline-none transition-all">
+                <div class="mt-5 h-2 w-full bg-white/5 rounded-full overflow-hidden"><div id="pw-bar" class="h-full w-0 transition-all duration-500"></div></div>
+                <div class="flex items-center justify-between mt-3"><span id="pw-label" class="text-[10px] font-black uppercase tracking-widest text-gray-500">Waiting…</span><span id="pw-score" class="text-[10px] text-gray-500"></span></div>
+                <ul id="pw-tips" class="mt-4 space-y-2 text-xs text-gray-400"></ul>`,
+            json: () => `
+                <textarea id="json-in" rows="6" placeholder='{"paste":"json here"}' class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white text-xs font-mono focus:border-rose-500/50 focus:outline-none transition-all"></textarea>
+                <div class="flex gap-3 mt-4">
+                    <button id="json-fmt" class="flex-1 py-2.5 bg-rose-600 text-white rounded-xl text-xs font-bold hover:bg-rose-500 transition-all">Format</button>
+                    <button id="json-min" class="flex-1 py-2.5 bg-white/5 border border-white/10 text-white rounded-xl text-xs font-bold hover:bg-white/10 transition-all">Minify</button>
+                </div>
+                <textarea id="json-out" rows="6" placeholder="Output" class="w-full px-4 py-3 mt-4 bg-black/60 border border-white/10 rounded-xl text-gray-300 text-xs font-mono focus:outline-none transition-all"></textarea>`,
+            color: () => `
+                <div class="flex items-center gap-4">
+                    <input id="col-pick" type="color" value="#e11d48" class="w-20 h-20 rounded-2xl bg-transparent border border-white/10 cursor-pointer flex-shrink-0">
+                    <input id="col-hex" type="text" value="#e11d48" class="flex-1 px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white text-sm font-mono focus:border-rose-500/50 focus:outline-none transition-all">
+                </div>
+                <div class="grid grid-cols-2 gap-3 mt-5" id="col-out"></div>`,
+            case: () => `
+                <textarea id="case-in" rows="5" placeholder="Paste or type your text here" class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white text-sm focus:border-rose-500/50 focus:outline-none transition-all"></textarea>
+                <div class="grid grid-cols-2 gap-3 mt-4" id="case-out"></div>`,
+            hash: () => `
+                <input id="hash-in" type="text" placeholder="Text to hash" class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white text-sm focus:border-rose-500/50 focus:outline-none transition-all">
+                <div class="flex gap-3 mt-4">
+                    <button data-hash="SHA-256" class="flex-1 py-2.5 bg-rose-600 text-white rounded-xl text-xs font-bold hover:bg-rose-500 transition-all">SHA-256</button>
+                    <button data-hash="SHA-1" class="flex-1 py-2.5 bg-white/5 border border-white/10 text-white rounded-xl text-xs font-bold hover:bg-white/10 transition-all">SHA-1</button>
+                    <button data-hash="SHA-512" class="flex-1 py-2.5 bg-white/5 border border-white/10 text-white rounded-xl text-xs font-bold hover:bg-white/10 transition-all">SHA-512</button>
+                </div>
+                <input id="hash-out" readonly class="w-full px-4 py-3 mt-4 bg-black/60 border border-white/10 rounded-xl text-gray-300 text-xs font-mono focus:outline-none transition-all">`,
+            qr: () => `
+                <input id="qr-in" type="text" placeholder="https://example.com or any text" class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white text-sm focus:border-rose-500/50 focus:outline-none transition-all">
+                <div class="flex flex-col items-center gap-4 mt-6">
+                    <div id="qr-out" class="p-4 bg-white rounded-2xl min-h-[160px] min-w-[160px] flex items-center justify-center"><span class="text-gray-400 text-xs">Enter a link or text</span></div>
+                    <a id="qr-dl" download="qrcode.png" class="hidden px-6 py-2.5 bg-rose-600 text-white rounded-xl text-xs font-bold hover:bg-rose-500 transition-all">Download PNG</a>
+                </div>`,
+            diff: () => `
+                <div class="grid lg:grid-cols-2 gap-4">
+                    <textarea id="diff-a" rows="6" placeholder="Original text" class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white text-xs font-mono focus:border-rose-500/50 focus:outline-none transition-all"></textarea>
+                    <textarea id="diff-b" rows="6" placeholder="Changed text" class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white text-xs font-mono focus:border-rose-500/50 focus:outline-none transition-all"></textarea>
+                </div>
+                <button id="diff-go" class="w-full py-3 mt-4 bg-rose-600 text-white rounded-xl text-xs font-bold hover:bg-rose-500 transition-all">Compare</button>
+                <div id="diff-out" class="mt-4 max-h-64 overflow-y-auto rounded-xl border border-white/10 bg-black/40 p-4 text-xs font-mono"></div>`,
+            timestamp: () => `
+                <div class="grid lg:grid-cols-2 gap-4">
+                    <div><label class="text-[10px] font-black uppercase tracking-widest text-gray-500 block mb-2">Unix Timestamp</label>
+                        <input id="ts-num" type="number" placeholder="1700000000" class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white text-sm font-mono focus:border-rose-500/50 focus:outline-none transition-all"></div>
+                    <div><label class="text-[10px] font-black uppercase tracking-widest text-gray-500 block mb-2">Date &amp; Time</label>
+                        <input id="ts-date" type="datetime-local" class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white text-sm focus:border-rose-500/50 focus:outline-none transition-all"></div>
+                </div>
+                <div class="mt-5 space-y-2 text-xs" id="ts-out"></div>`
+        };
+
+        // ---- Tool behaviour ----
+        const TOOL_INIT = {
+            password: () => {
+                const inp = document.getElementById('pw-in'), bar = document.getElementById('pw-bar'),
+                    label = document.getElementById('pw-label'), score = document.getElementById('pw-score'),
+                    tips = document.getElementById('pw-tips');
+                inp.oninput = () => {
+                    const v = inp.value;
+                    if (!v) {
+                        bar.style.width = '0%'; label.textContent = 'Waiting…';
+                        label.style.color = '#6b7280'; score.textContent = ''; tips.innerHTML = ''; return;
+                    }
+                    let s = 0; const t = [];
+                    if (v.length >= 8) s++; else t.push('Use at least 8 characters');
+                    if (v.length >= 12) s++; else if (v.length >= 8) t.push('12+ characters is stronger');
+                    if (/[a-z]/.test(v) && /[A-Z]/.test(v)) s++; else t.push('Mix upper and lower case');
+                    if (/\d/.test(v)) s++; else t.push('Add a number');
+                    if (/[^A-Za-z0-9]/.test(v)) s++; else t.push('Add a symbol');
+                    if (v.length < 10) t.push('Avoid dictionary words and reused passwords');
+                    const tiers = [{ t: 'Very Weak', c: '#ef4444' }, { t: 'Weak', c: '#f97316' },
+                    { t: 'Fair', c: '#eab308' }, { t: 'Good', c: '#84cc16' },
+                    { t: 'Strong', c: '#22c55e' }];
+                    const tier = tiers[Math.min(s, 4)];
+                    bar.style.width = Math.min(100, (s / 5) * 100) + '%';
+                    bar.style.background = tier.c; label.textContent = tier.t;
+                    label.style.color = tier.c; score.textContent = s + ' / 5';
+                    tips.innerHTML = t.length
+                        ? t.map((x) => `<li class="flex items-start gap-2"><i class="uil uil-exclamation-circle text-rose-500 mt-0.5"></i><span>${x}</span></li>`).join('')
+                        : '<li class="flex items-center gap-2 text-emerald-400"><i class="uil uil-check-circle"></i><span>Strong password — no warnings</span></li>';
+                };
+            },
+            json: () => {
+                const i = document.getElementById('json-in'), o = document.getElementById('json-out');
+                document.getElementById('json-fmt').onclick = () => {
+                    try { o.value = JSON.stringify(JSON.parse(i.value), null, 2); }
+                    catch (e) { o.value = '⚠ Invalid JSON — ' + e.message; }
+                };
+                document.getElementById('json-min').onclick = () => {
+                    try { o.value = JSON.stringify(JSON.parse(i.value)); }
+                    catch (e) { o.value = '⚠ Invalid JSON — ' + e.message; }
+                };
+            },
+            color: () => {
+                const pick = document.getElementById('col-pick'), hex = document.getElementById('col-hex'),
+                    out = document.getElementById('col-out');
+                const upd = (h) => {
+                    h = h.replace('#', '');
+                    if (h.length === 3) h = h.split('').map((c) => c + c).join('');
+                    if (!/^[0-9a-f]{6}$/i.test(h)) return;
+                    const r = parseInt(h.slice(0, 2), 16), g = parseInt(h.slice(2, 4), 16), b = parseInt(h.slice(4, 6), 16);
+                    const max = Math.max(r, g, b) / 255, min = Math.min(r, g, b) / 255, l = (max + min) / 2;
+                    let hh = 0, s = 0; const d = max - min;
+                    if (d) {
+                        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                        hh = max === r ? ((g - b) / d + (g < b ? 6 : 0)) : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+                        hh *= 60;
+                    }
+                    const rows = [['HEX', '#' + h.toUpperCase()], ['RGB', `rgb(${r}, ${g}, ${b})`],
+                    ['HSL', `hsl(${Math.round(hh)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`]];
+                    out.innerHTML = rows.map(([k, v]) => `
+                        <button data-copy="${v}" class="text-left px-4 py-3 bg-black/40 border border-white/10 rounded-xl hover:border-rose-500/40 transition-all">
+                            <span class="block text-[9px] font-black uppercase tracking-widest text-gray-500 mb-1">${k}</span>
+                            <span class="block text-white text-xs font-mono break-all">${v}</span>
+                        </button>`).join('');
+                    out.querySelectorAll('[data-copy]').forEach((b) => b.onclick = () => {
+                        navigator.clipboard.writeText(b.dataset.copy);
+                        const s = b.lastElementChild, o = s.textContent;
+                        s.textContent = 'Copied ✓';
+                        setTimeout(() => s.textContent = o, 900);
+                    });
+                };
+                pick.oninput = () => { hex.value = pick.value; upd(pick.value); };
+                hex.oninput = () => upd(hex.value);
+                upd('#e11d48');
+            },
+            case: () => {
+                const i = document.getElementById('case-in'), out = document.getElementById('case-out');
+                const upd = () => {
+                    const w = i.value.trim().split(/[\s_\-.]+/).filter(Boolean)
+                        .map((x) => x.charAt(0).toUpperCase() + x.slice(1).toLowerCase());
+                    if (!w.length) { out.innerHTML = ''; return; }
+                    const lo = w.map((x) => x.toLowerCase());
+                    const rows = [
+                        ['camelCase', lo[0] + lo.slice(1).map((c) => c.charAt(0).toUpperCase() + c.slice(1)).join('')],
+                        ['PascalCase', lo.map((c) => c.charAt(0).toUpperCase() + c.slice(1)).join('')],
+                        ['snake_case', lo.join('_')],
+                        ['kebab-case', lo.join('-')],
+                        ['UPPER_CASE', lo.join('_').toUpperCase()],
+                        ['Title Case', w.join(' ')]
+                    ];
+                    out.innerHTML = rows.map(([k, v]) => `
+                        <button data-copy="${v}" class="flex items-center justify-between gap-3 px-4 py-3 bg-black/40 border border-white/10 rounded-xl hover:border-rose-500/40 transition-all">
+                            <span class="text-[9px] font-black uppercase tracking-widest text-gray-500 shrink-0">${k}</span>
+                            <span class="text-white text-xs font-mono truncate">${v}</span>
+                        </button>`).join('');
+                    out.querySelectorAll('[data-copy]').forEach((b) => b.onclick = () => {
+                        navigator.clipboard.writeText(b.dataset.copy);
+                        const s = b.lastElementChild, o = s.textContent;
+                        s.textContent = 'Copied ✓';
+                        setTimeout(() => s.textContent = o, 900);
+                    });
+                };
+                i.oninput = upd;
+            },
+            hash: () => {
+                const i = document.getElementById('hash-in'), o = document.getElementById('hash-out');
+                const go = async (alg) => {
+                    if (!i.value) { o.value = 'Enter some text first'; return; }
+                    try {
+                        const buf = await crypto.subtle.digest(alg, new TextEncoder().encode(i.value));
+                        o.value = Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
+                    } catch (e) { o.value = '⚠ ' + e.message; }
+                };
+                document.querySelectorAll('[data-hash]').forEach((b) => b.onclick = () => go(b.dataset.hash));
+            },
+            qr: () => {
+                const i = document.getElementById('qr-in'), out = document.getElementById('qr-out'),
+                    dl = document.getElementById('qr-dl');
+                const gen = () => {
+                    const v = i.value.trim();
+                    if (!v) {
+                        out.innerHTML = '<span class="text-gray-400 text-xs">Enter a link or text</span>';
+                        dl.classList.add('hidden'); return;
+                    }
+                    const src = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&data=' + encodeURIComponent(v);
+                    const img = new Image();
+                    img.onload = () => {
+                        out.innerHTML = ''; out.appendChild(img);
+                        const c = document.createElement('canvas');
+                        c.width = img.naturalWidth; c.height = img.naturalHeight;
+                        c.getContext('2d').drawImage(img, 0, 0);
+                        dl.href = c.toDataURL('image/png');
+                        dl.classList.remove('hidden');
+                    };
+                    img.onerror = () => { out.innerHTML = '<span class="text-rose-400 text-xs">Could not generate code</span>'; };
+                    img.src = src;
+                };
+                i.oninput = gen;
+                gen();
+            },
+            diff: () => {
+                const a = document.getElementById('diff-a'), b = document.getElementById('diff-b'),
+                    out = document.getElementById('diff-out');
+                const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+                document.getElementById('diff-go').onclick = () => {
+                    const la = a.value.split('\n'), lb = b.value.split('\n');
+                    const n = Math.max(la.length, lb.length);
+                    let rows = '', added = 0, removed = 0;
+                    for (let k = 0; k < n; k++) {
+                        const x = la[k], y = lb[k];
+                        if (x === y) {
+                            rows += `<div class="text-gray-400"><span class="text-gray-600 select-none">&nbsp;&nbsp;</span>${esc(x ?? '')}</div>`;
+                        } else {
+                            if (x !== undefined) { removed++; rows += `<div class="bg-rose-500/10 text-rose-300"><span class="text-rose-500 select-none">- </span>${esc(x)}</div>`; }
+                            if (y !== undefined) { added++; rows += `<div class="bg-emerald-500/10 text-emerald-300"><span class="text-emerald-500 select-none">+ </span>${esc(y)}</div>`; }
+                        }
+                    }
+                    out.innerHTML = (added || removed)
+                        ? `<div class="mb-3 text-[10px] font-bold uppercase tracking-widest"><span class="text-emerald-400">+${added} added</span> <span class="text-rose-400">-${removed} removed</span></div>${rows}`
+                        : '<div class="text-gray-500">Both texts are identical.</div>';
+                };
+            },
+            timestamp: () => {
+                const num = document.getElementById('ts-num'), date = document.getElementById('ts-date'),
+                    out = document.getElementById('ts-out');
+                const render = () => {
+                    let d = null;
+                    if (num.value) d = new Date(parseInt(num.value, 10) * 1000);
+                    else if (date.value) d = new Date(date.value);
+                    if (!d || isNaN(d)) { out.innerHTML = '<span class="text-gray-500">Enter a timestamp or pick a date.</span>'; return; }
+                    const rows = [['Local', d.toLocaleString()], ['UTC', d.toUTCString()], ['ISO 8601', d.toISOString()],
+                    ['Relative', d < new Date() ? Math.floor((new Date() - d) / 1000) + ' seconds ago' : 'in ' + Math.floor((d - new Date()) / 1000) + ' seconds']];
+                    out.innerHTML = rows.map(([k, v]) => `
+                        <div class="flex flex-wrap justify-between gap-2 px-4 py-3 bg-black/40 border border-white/10 rounded-xl">
+                            <span class="text-[9px] font-black uppercase tracking-widest text-gray-500">${k}</span>
+                            <span class="text-white font-mono text-[11px]">${v}</span>
+                        </div>`).join('');
+                };
+                num.oninput = () => { if (num.value) date.value = ''; render(); };
+                date.oninput = () => { if (date.value) num.value = ''; render(); };
+                render();
+            }
+        };
+
+        const runTool = (id) => {
+            const body = document.getElementById('tool-body');
+            if (!body) return;
+            const impl = TOOL_IMPL[id];
+            if (!impl) { body.innerHTML = '<p class="text-gray-400 text-sm">Coming soon.</p>'; return; }
+            body.innerHTML = impl();
+            (TOOL_INIT[id] || (() => { }))();
+        };
+
+        document.addEventListener('click', (e) => {
+            const card = e.target.closest('[data-tool]');
+            if (card) { e.preventDefault(); openTool(card.dataset.tool); }
+            if (e.target.id === 'tool-overlay') closeTool();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const m = document.getElementById('tool-modal');
+                if (m && !m.classList.contains('hidden')) closeTool();
+            }
+        });
+
+        renderTools();
+    </script>
+</body>
+
+</html>
